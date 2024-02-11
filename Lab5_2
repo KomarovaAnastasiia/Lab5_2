@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Клас процесор
+class Processor {
+private:
+    int power; // Потужність процесора в МГц
+public:
+    // Конструктор за замовчуванням
+    Processor() : power(0) {}
+
+    // Конструктор з параметрами
+    Processor(int power_val) : power(power_val) {}
+
+    // Метод доступу до потужності процесора
+    int getPower() const {
+        return power;
+    }
+};
+
+// Клас комп'ютер
+class Computer {
+private:
+    string brand;   // Марка комп'ютера
+    double price;   // Ціна комп'ютера
+    Processor cpu;  // Об'єкт процесора
+public:
+    // Конструктор за замовчуванням
+    Computer() : brand(""), price(0), cpu() {}
+
+    // Конструктор з параметрами
+    Computer(string brand_val, double price_val, int cpu_power) : brand(brand_val), price(price_val), cpu(cpu_power) {}
+
+    // Деструктор
+    ~Computer() {}
+
+    // Функція друку
+    void print() const {
+        cout << "Brand: " << brand << ", Price: $" << price << ", CPU Power: " << cpu.getPower() << " MHz" << endl;
+    }
+};
+
+// Похідний клас комп'ютерів з монітором
+class ComputerWithMonitor : public Computer {
+private:
+    int monitorSize; // Розмір монітора
+public:
+    // Конструктор за замовчуванням
+    ComputerWithMonitor() : monitorSize(0) {}
+
+    // Конструктор з параметрами
+    ComputerWithMonitor(string brand_val, double price_val, int cpu_power, int size_val) : Computer(brand_val, price_val, cpu_power), monitorSize(size_val) {}
+
+    // Деструктор
+    ~ComputerWithMonitor() {}
+
+    // Функція друку (перевизначена)
+    void print() const {
+        cout << "Brand: " << brand << ", Price: $" << price << ", CPU Power: " << cpu.getPower() << " MHz, Monitor Size: " << monitorSize << " inches" << endl;
+    }
+};
+
+int main() {
+    // Тестування класу Computer
+    Computer comp1("HP", 1200, 3500);
+    cout << "Computer 1 details:" << endl;
+    comp1.print();
+    cout << endl;
+
+    // Тестування класу ComputerWithMonitor
+    ComputerWithMonitor comp2("Dell", 1500, 4000, 27);
+    cout << "Computer 2 details:" << endl;
+    comp2.print();
+    cout << endl;
+
+    return 0;
+}
